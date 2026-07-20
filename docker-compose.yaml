@@ -1,44 +1,4 @@
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.0
-    container_name: ml-rag-elasticsearch
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ports:
-      - "9200:9200"
-    networks:
-      - rag_network
-    volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fsS 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' >/dev/null || exit 1"]
-      interval: 10s
-      timeout: 6s
-      retries: 12
-      start_period: 30s
-
-  postgres:
-    image: postgres:15
-    container_name: ml-rag-postgres
-    environment:
-      - POSTGRES_USER=rag_user
-      - POSTGRES_PASSWORD=rag_password
-      - POSTGRES_DB=rag_monitoring
-    ports:
-      - "5432:5432"
-    networks:
-      - rag_network
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 12
-      start_period: 10s
-
   grafana:
     image: grafana/grafana:11.0.0
     container_name: ml-rag-grafana
@@ -51,18 +11,8 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/dashboards/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml:ro
       - ./grafana/provisioning/dashboards/rag_dashboard.json:/etc/grafana/provisioning/dashboards/rag_dashboard.json:ro
-      - ./grafana/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
     networks:
       - rag_network
-    depends_on:
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/health >/dev/null || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 12
-      start_period: 20s
 
   app:
     build: .
@@ -74,19 +24,10 @@ services:
       - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4.1}
       - GROQ_API_KEY=${GROQ_API_KEY:-}
       - GROQ_MODEL=${GROQ_MODEL:-llama-3.1-8b-instant}
-      - ELASTIC_URL=http://elasticsearch:9200
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=rag_user
-      - DB_PASSWORD=rag_password
-      - DB_NAME=rag_monitoring
+      - PINECONE_API_KEY=${PINECONE_API_KEY:?Set PINECONE_API_KEY in your .env file}
+      - DATABASE_URL=${DATABASE_URL:?Set DATABASE_URL to your Supabase connection string}
     networks:
       - rag_network
-    depends_on:
-      elasticsearch:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=5).read()"]
       interval: 10s
@@ -98,6 +39,4 @@ networks:
   rag_network:
 
 volumes:
-  elasticsearch_data:
-  postgres_data:
   grafana_data:

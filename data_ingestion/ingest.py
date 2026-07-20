@@ -2,7 +2,7 @@ import wikipedia
 import json
 import os
 import re
-from elasticsearch import Elasticsearch
+from pinecone import Pinecone, ServerlessSpec
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 from dotenv import load_dotenv
@@ -26,8 +26,8 @@ WIKI_TOPICS = [
     "Transformer (machine learning model)"
 ]
 
-ELASTIC_URL = os.getenv("ELASTIC_URL", "http://localhost:9200")
-INDEX_NAME = "ml_concepts"
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
+INDEX_NAME = "ml-concepts"  # Pinecone index names must be lowercase hyphens
 
 def fetch_wikipedia_pages(topics):
     print("Fetching Wikipedia pages...")
@@ -103,40 +103,43 @@ def process_and_embed(pages_data):
             
     return documents
 
-def index_to_elasticsearch(documents):
-    print(f"Connecting to Elasticsearch at {ELASTIC_URL}...")
-    es = Elasticsearch(ELASTIC_URL)
-    
-    # Define index mapping
-    mapping = {
-        "mappings": {
-            "properties": {
-                "id": {"type": "keyword"},
-                "title": {"type": "text"},
-                "url": {"type": "keyword"},
-                "text": {"type": "text"},
-                "embedding": {
-                    "type": "dense_vector",
-                    "dims": 384,
-                    "index": True,
-                    "similarity": "cosine"
-                }
-            }
-        }
-    }
+def index_to_pinecone(documents):
+    if not PINECONE_API_KEY:
+        print("Error: PINECONE_API_KEY not found. Please set it in .env")
+        return
+        
+    print(f"Connecting to Pinecone...")
+    pc = Pinecone(api_key=PINECONE_API_KEY)
     
     # Create index if not exists
-    if es.indices.exists(index=INDEX_NAME):
-        print(f"Deleting existing index '{INDEX_NAME}'...")
-        es.indices.delete(index=INDEX_NAME)
-        
-    print(f"Creating index '{INDEX_NAME}'...")
-    es.indices.create(index=INDEX_NAME, body=mapping)
+    if INDEX_NAME not in pc.list_indexes().names():
+        print(f"Creating index '{INDEX_NAME}'...")
+        pc.create_index(
+            name=INDEX_NAME,
+            dimension=384,
+            metric="cosine",
+            spec=ServerlessSpec(cloud="aws", region="us-east-1")
+        )
     
-    # Index documents
-    print(f"Indexing {len(documents)} documents...")
-    for doc in tqdm(documents):
-        es.index(index=INDEX_NAME, id=doc["id"], document=doc)
+    index = pc.Index(INDEX_NAME)
+    
+    print(f"Preparing {len(documents)} vectors for Pinecone...")
+    vectors = []
+    for doc in documents:
+        vectors.append({
+            "id": doc["id"],
+            "values": doc["embedding"],
+            "metadata": {
+                "title": doc["title"],
+                "url": doc["url"],
+                "text": doc["text"]
+            }
+        })
+        
+    print(f"Upserting to Pinecone...")
+    batch_size = 100
+    for i in tqdm(range(0, len(vectors), batch_size)):
+        index.upsert(vectors=vectors[i:i+batch_size])
         
     print("Indexing complete.")
 
@@ -150,4 +153,4 @@ if __name__ == "__main__":
         sample = [{k: v for k, v in d.items() if k != 'embedding'} for d in documents[:5]]
         json.dump(sample, f, indent=2)
         
-    index_to_elasticsearch(documents)
+    index_to_pinecone(documents)

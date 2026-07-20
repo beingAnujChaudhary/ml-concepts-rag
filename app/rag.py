@@ -1,12 +1,12 @@
 import os
 import time
 
-from elasticsearch import Elasticsearch
+from pinecone import Pinecone
 from openai import OpenAI
 from sentence_transformers import SentenceTransformer, CrossEncoder
 
-ELASTIC_URL = os.getenv("ELASTIC_URL", "http://localhost:9200")
-INDEX_NAME = "ml_concepts"
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
+INDEX_NAME = "ml-concepts"
 
 # Dual LLM provider: try OpenAI first, fall back to Groq
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
@@ -28,7 +28,7 @@ if GROQ_API_KEY:
         "model": GROQ_MODEL,
     })
 
-es_client = Elasticsearch(ELASTIC_URL)
+
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
@@ -60,41 +60,33 @@ def rewrite_query(user_query):
     result = _llm_complete([{"role": "user", "content": prompt}], temperature=0.3)
     return result if result else user_query
 
-def hybrid_search(query, top_k=5):
-    """Performs a hybrid search (BM25 + Vector KNN) on Elasticsearch."""
+def vector_search(query, top_k=5):
+    """Performs a vector search on Pinecone."""
+    if not PINECONE_API_KEY:
+        print("Pinecone API key missing")
+        return []
+        
     query_vector = embedding_model.encode(query).tolist()
     
-    search_query = {
-        "knn": {
-            "field": "embedding",
-            "query_vector": query_vector,
-            "k": top_k,
-            "num_candidates": 50,
-            "boost": 0.5
-        },
-        "query": {
-            "match": {
-                "text": {
-                    "query": query,
-                    "boost": 0.5
-                }
-            }
-        },
-        "size": top_k,
-        "_source": ["id", "title", "url", "text"]
-    }
+    pc = Pinecone(api_key=PINECONE_API_KEY)
+    index = pc.Index(INDEX_NAME)
     
     try:
-        response = es_client.search(index=INDEX_NAME, body=search_query)
-        hits = response['hits']['hits']
+        response = index.query(
+            vector=query_vector,
+            top_k=top_k,
+            include_metadata=True
+        )
         
         results = []
-        for hit in hits:
-            results.append(hit['_source'])
+        for match in response['matches']:
+            doc = match['metadata']
+            doc['id'] = match['id']
+            results.append(doc)
             
         return results
     except Exception as e:
-        print(f"Error in hybrid search: {e}")
+        print(f"Error in vector search: {e}")
         return []
 
 def rerank_results(query, results):
@@ -171,7 +163,7 @@ def get_rag_response(user_query):
     
     rewritten_query = rewrite_query(user_query)
     
-    search_results = hybrid_search(rewritten_query, top_k=5)
+    search_results = vector_search(rewritten_query, top_k=5)
     reranked_results = rerank_results(rewritten_query, search_results)
     
     # We only use top 3 for the LLM to save context size

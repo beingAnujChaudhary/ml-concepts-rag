@@ -6,16 +6,20 @@ DB_PORT = os.getenv("DB_PORT", "5432")
 DB_USER = os.getenv("DB_USER", "rag_user")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "rag_password")
 DB_NAME = os.getenv("DB_NAME", "rag_monitoring")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def get_db_connection():
     try:
-        conn = psycopg2.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            dbname=DB_NAME
-        )
+        if DATABASE_URL:
+            conn = psycopg2.connect(DATABASE_URL)
+        else:
+            conn = psycopg2.connect(
+                host=DB_HOST,
+                port=DB_PORT,
+                user=DB_USER,
+                password=DB_PASSWORD,
+                dbname=DB_NAME
+            )
         return conn
     except Exception as e:
         print(f"Database connection error: {e}")
