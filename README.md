@@ -4,12 +4,12 @@ An end-to-end retrieval-augmented generation application that answers machine-le
 
 ## Architecture
 
-The automated ingestion script fetches 13 machine-learning articles through the Wikipedia API, cleans and chunks the text, embeds chunks with `all-MiniLM-L6-v2`, and rebuilds an Elasticsearch index. At query time, GPT-4.1 rewrites the question, Elasticsearch performs hybrid BM25 and vector retrieval, and GPT-4.1 generates a context-only answer plus a Mermaid diagram. Streamlit provides the interface. PostgreSQL stores interactions, latency, and feedback; Grafana visualizes this monitoring data.
+The automated ingestion script fetches 13 machine-learning articles through the Wikipedia API, cleans and chunks the text, embeds chunks with `all-MiniLM-L6-v2`, and rebuilds an Elasticsearch index. At query time, the LLM rewrites the question, Elasticsearch performs hybrid BM25 and vector retrieval, results are re-ranked by a cross-encoder, and the LLM generates a context-only answer plus a Mermaid diagram. Streamlit provides the interface. PostgreSQL stores interactions, latency, and feedback; Grafana visualizes this monitoring data.
 
 | Capability | Technology |
 |---|---|
 | Data source | Wikipedia API |
-| LLM | OpenAI GPT-4.1 |
+| LLM | Groq (Llama 3.1 8B via OpenAI-compatible API) |
 | Embeddings | Sentence Transformers `all-MiniLM-L6-v2` |
 | Knowledge base | Elasticsearch 8.14 hybrid search |
 | Interface | Streamlit with Mermaid diagrams |
@@ -18,7 +18,7 @@ The automated ingestion script fetches 13 machine-learning articles through the 
 
 ## Prerequisites
 
-Install Docker Desktop with Docker Compose and create an OpenAI API key with access to GPT-4.1. API usage incurs OpenAI charges. Never commit or paste your key into source code, screenshots, issues, or chat.
+Install Docker Desktop with Docker Compose and create a free Groq API key at https://console.groq.com/keys. Never commit or paste your key into source code, screenshots, issues, or chat.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ Copy-Item .env.example .env
 notepad .env
 ```
 
-Set `OPENAI_API_KEY` to a newly created key. The default model is `gpt-4.1`; it can be changed through `OPENAI_MODEL`.
+Set `GROQ_API_KEY` to a newly created key. The default model is `llama-3.1-8b-instant`; it can be changed through `LLM_MODEL`.
 
 Build and start the stack:
 
@@ -66,11 +66,11 @@ To stop the project, use `docker compose down`. Add `-v` only when you intention
 
 **Problem description (2):** The application provides focused, source-backed explanations and visual concept maps for people learning machine learning.
 
-**Retrieval flow (2):** Questions are rewritten, embedded, retrieved with Elasticsearch hybrid search, and answered by GPT-4.1 from the top contexts.
+**Retrieval flow (2):** Questions are rewritten, embedded, retrieved with Elasticsearch hybrid search, re-ranked by a cross-encoder, and answered by the LLM from the top contexts.
 
 **Retrieval evaluation (2):** `evaluation/evaluate_retrieval.ipynb` compares text, vector, and hybrid retrieval. Hybrid search is the production choice.
 
-**LLM evaluation (2):** `evaluation/evaluate_llm.ipynb` compares multiple prompts with an LLM-as-a-judge workflow using OpenAI. Run it with a valid API key and record the results before submission.
+**LLM evaluation (2):** `evaluation/evaluate_llm.ipynb` compares multiple prompts with an LLM-as-a-judge workflow using Groq. Run it with a valid API key and record the results before submission.
 
 **Interface (2):** Streamlit offers chat, expandable citations, feedback controls, and generated Mermaid concept diagrams.
 
@@ -82,7 +82,7 @@ To stop the project, use `docker compose down`. Add `-v` only when you intention
 
 **Reproducibility (2):** Dependencies and service versions are specified, the dataset is fetched from a public API, configuration is documented, and no secret is committed.
 
-**Best practices:** Hybrid search and query rewriting are implemented. `rerank_results` is currently only an integration hook and must not be claimed as real document reranking until a reranker is implemented and evaluated.
+**Best practices:** Hybrid search (BM25 + vector KNN), query rewriting, and document re-ranking with a cross-encoder (`cross-encoder/ms-marco-MiniLM-L-6-v2`) are implemented.
 
 ## Evaluation and submission checklist
 

@@ -45,7 +45,7 @@ def fetch_wikipedia_pages(topics):
     return pages_data
 
 def chunk_text(text, chunk_size=500, overlap=50):
-    # Split text into paragraphs first to avoid splitting mid-sentence if possible
+    """Split text into chunks of approximately chunk_size characters with overlap."""
     paragraphs = text.split('\n')
     paragraphs = [p.strip() for p in paragraphs if p.strip()]
     
@@ -58,7 +58,12 @@ def chunk_text(text, chunk_size=500, overlap=50):
         else:
             if current_chunk:
                 chunks.append(current_chunk.strip())
-            current_chunk = p + " "
+            # Start next chunk with overlap from end of previous chunk
+            if overlap > 0 and current_chunk:
+                overlap_text = current_chunk.strip()[-overlap:]
+                current_chunk = overlap_text + " " + p + " "
+            else:
+                current_chunk = p + " "
             
     if current_chunk:
         chunks.append(current_chunk.strip())
