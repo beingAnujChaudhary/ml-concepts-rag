@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.0
+    container_name: ml-rag-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ports:
+      - "9200:9200"
+    networks:
+      - rag_network
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  postgres:
+    image: postgres:15
+    container_name: ml-rag-postgres
+    environment:
+      - POSTGRES_USER=rag_user
+      - POSTGRES_PASSWORD=rag_password
+      - POSTGRES_DB=rag_monitoring
+    ports:
+      - "5432:5432"
+    networks:
+      - rag_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    container_name: ml-rag-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - rag_network
+    depends_on:
+      - postgres
+
+  app:
+    build: .
+    container_name: ml-rag-app
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:?Set OPENAI_API_KEY in your .env file}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4.1}
+      - ELASTIC_URL=http://elasticsearch:9200
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=rag_user
+      - DB_PASSWORD=rag_password
+      - DB_NAME=rag_monitoring
+    networks:
+      - rag_network
+    depends_on:
+      - elasticsearch
+      - postgres
+
+networks:
+  rag_network:
+
+volumes:
+  elasticsearch_data:
+  postgres_data:
+  grafana_data:

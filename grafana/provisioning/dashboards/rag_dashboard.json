@@ -1,0 +1,37 @@
+{
+  "title": "RAG Monitoring",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total Queries",
+      "gridPos": {"h": 4, "w": 4, "x": 0, "y": 0},
+      "targets": [{"rawSql": "SELECT count(*) FROM interactions;", "refId": "A", "format": "table"}]
+    },
+    {
+      "type": "stat",
+      "title": "Avg Response Time (ms)",
+      "gridPos": {"h": 4, "w": 4, "x": 4, "y": 0},
+      "targets": [{"rawSql": "SELECT avg(response_time_ms) FROM interactions;", "refId": "A", "format": "table"}]
+    },
+    {
+      "type": "piechart",
+      "title": "Feedback Distribution",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0},
+      "targets": [{"rawSql": "SELECT CASE WHEN feedback=1 THEN 'Positive' WHEN feedback=-1 THEN 'Negative' ELSE 'Neutral' END as type, count(*) as count FROM interactions GROUP BY feedback;", "refId": "A", "format": "table"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Queries Over Time",
+      "gridPos": {"h": 8, "w": 16, "x": 0, "y": 8},
+      "targets": [{"rawSql": "SELECT timestamp as time, 1 as count FROM interactions ORDER BY timestamp ASC;", "refId": "A", "format": "time_series"}]
+    },
+    {
+      "type": "table",
+      "title": "Recent Queries",
+      "gridPos": {"h": 8, "w": 16, "x": 0, "y": 16},
+      "targets": [{"rawSql": "SELECT timestamp, user_query, rewritten_query, response_time_ms, feedback FROM interactions ORDER BY timestamp DESC LIMIT 10;", "refId": "A", "format": "table"}]
+    }
+  ],
+  "schemaVersion": 38,
+  "timezone": "browser"
+}
