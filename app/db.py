@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg
 import os
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
@@ -11,9 +11,9 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 def get_db_connection():
     try:
         if DATABASE_URL:
-            conn = psycopg2.connect(DATABASE_URL)
+            conn = psycopg.connect(DATABASE_URL)
         else:
-            conn = psycopg2.connect(
+            conn = psycopg.connect(
                 host=DB_HOST,
                 port=DB_PORT,
                 user=DB_USER,

@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+wikipedia.set_user_agent("MLConceptsRAG/1.0 (beinganujchaudhary@gmail.com)")
+
 # Topics to fetch from Wikipedia
 WIKI_TOPICS = [
     "Machine learning",
