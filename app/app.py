@@ -51,11 +51,11 @@ st.markdown(
         gap: 0.75rem;
     }
     .brand-dot {
-        width: 42px; height: 42px;
+        width: 56px; height: 56px;
         background: linear-gradient(135deg, #FE320A, #FF6B35);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.1rem;
+        font-size: 2rem;
         box-shadow: 0 4px 14px rgba(254,50,10,0.3);
         flex-shrink: 0;
     }
@@ -117,7 +117,7 @@ st.markdown(
         font-size: 1rem;
         color: rgba(26,26,26,0.55);
         font-weight: 400;
-        max-width: 460px;
+        max-width: 700px;
         margin: 0.6rem auto 0;
         line-height: 1.6;
         text-align: center;
@@ -275,13 +275,13 @@ st.markdown(
         height: 36px;
         border-radius: 50%;
         background: rgba(26,26,26,0.05);
-        color: #1a1a1a;
-        text-decoration: none;
+        color: #FE320A !important;
+        text-decoration: none !important;
         transition: all 0.3s ease;
     }
     .social-link:hover {
         background: #FE320A;
-        color: #fff;
+        color: #fff !important;
         transform: translateY(-2px);
     }
     .social-link svg {
@@ -315,9 +315,6 @@ with st.sidebar:
 <a href="https://twitter.com/anujisonholiday" target="_blank" class="social-link" title="X (Twitter)">
 <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 </a>
-<a href="https://www.instagram.com/beinganujchaudhary" target="_blank" class="social-link" title="Instagram">
-<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74.001 8.344.001 7.053.058c-3.75.17-6.175 1.649-6.98 6.98-.056 1.291-.058 1.687-.058 4.914s.002 3.623.058 4.914c.805 5.332 3.23 6.811 6.98 6.98 1.291.056 1.687.058 4.914.058s3.623-.002 4.914-.058c5.332-.805 6.811-3.23 6.98-6.98.056-1.291.058-1.687.058-4.914s-.002-3.623-.058-4.914c-.805-5.332-3.23-6.811-6.98-6.98C15.656.001 15.26.001 12 .001z"></path></svg>
-</a>
 <a href="mailto:beinganujchaudhary@gmail.com" class="social-link" title="Email">
 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
 </a>
@@ -328,7 +325,7 @@ with st.sidebar:
 
 <div style="margin-top: 2.5rem; font-size: 0.82rem; color: rgba(26,26,26,0.55); line-height: 1.5;">
 <p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered bot uses a curated knowledge base to teach Machine Learning with context and visual concept maps.</p>
-<p style="margin-top: 1rem;">&copy; 2024 Anuj Chaudhary</p>
+<p style="margin-top: 1rem;">&copy; 2026 Anuj Chaudhary</p>
 <p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FE320A; text-decoration: none;">beinganujchaudhary.web.app</a></p>
 </div>
 </div>
@@ -341,7 +338,7 @@ st.markdown(
     """
 <div class="brand-header">
 <div class="brand-logo-area">
-<div class="brand-dot">🤖</div>
+<div class="brand-dot">🧠</div>
 <div>
 <div class="brand-name">beingAnujChaudhary</div>
 <div class="brand-title">ML Concepts Atlas</div>
