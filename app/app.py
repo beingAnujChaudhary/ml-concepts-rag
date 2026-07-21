@@ -43,8 +43,8 @@ st.markdown(
     }
 
     /* ── Background ── */
-    .stApp { background-color: #EFEAE3; }
-    section[data-testid="stSidebar"] { background-color: #E4DDD5; }
+    .stApp { background-color: #0F172A; }
+    section[data-testid="stSidebar"] { background-color: #1E293B; }
 
     /* ── Hide default Streamlit chrome ── */
     #MainMenu, footer { visibility: hidden; }
@@ -57,7 +57,7 @@ st.markdown(
         align-items: center;
         justify-content: space-between;
         padding: 0.75rem 0 1.5rem 0;
-        border-bottom: 1px solid rgba(0,0,0,0.08);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
         margin-bottom: 2rem;
     }
     .brand-logo-area {
@@ -67,23 +67,23 @@ st.markdown(
     }
     .brand-dot {
         width: 56px; height: 56px;
-        background: linear-gradient(135deg, #FE320A, #FF6B35);
+        background: linear-gradient(135deg, #FF8A00, #FFA500);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         font-size: 2rem;
-        box-shadow: 0 4px 14px rgba(254,50,10,0.3);
+        box-shadow: 0 4px 14px rgba(255,138,0,0.3);
         flex-shrink: 0;
     }
     .brand-name {
         font-size: 0.72rem;
         font-weight: 500;
         letter-spacing: 0.12em;
-        color: rgba(26,26,26,0.5);
+        color: #FF8A00;
     }
     .brand-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #1a1a1a;
+        color: #F8FAFC;
         line-height: 1.2;
     }
     .brand-badge {
@@ -91,10 +91,10 @@ st.markdown(
         font-weight: 500;
         letter-spacing: 0.06em;
         padding: 0.3rem 0.85rem;
-        border: 1px solid rgba(254,50,10,0.25);
+        border: 1px solid rgba(255,138,0,0.3);
         border-radius: 50px;
-        color: #FE320A;
-        background: rgba(254,50,10,0.06);
+        color: #FF8A00;
+        background: rgba(255,138,0,0.1);
     }
 
     /* ── Hero section ── */
@@ -108,8 +108,8 @@ st.markdown(
         font-weight: 500;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: #FE320A;
-        border: 1px solid rgba(254,50,10,0.3);
+        color: #FF8A00;
+        border: 1px solid rgba(255,138,0,0.3);
         border-radius: 50px;
         padding: 0.3rem 1rem;
         margin-bottom: 1rem;
@@ -117,20 +117,20 @@ st.markdown(
     .hero-heading {
         font-size: clamp(1.9rem, 4vw, 2.6rem);
         font-weight: 600;
-        color: #1a1a1a;
+        color: #F8FAFC;
         line-height: 1.2;
         letter-spacing: -0.02em;
         margin: 0.5rem 0;
     }
     .hero-heading span {
-        background: linear-gradient(to right, #FE320A, #ff6b35);
+        background: linear-gradient(to right, #FF8A00, #FFC107);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
     .hero-sub {
         font-size: 1rem;
-        color: rgba(26,26,26,0.55);
+        color: #000000;
         font-weight: 400;
         max-width: 700px;
         margin: 0.6rem auto 0;
@@ -140,20 +140,20 @@ st.markdown(
 
     /* ── Chat input ── */
     .stChatInput > div {
-        border: 1px solid rgba(0,0,0,0.12) !important;
+        border: 1px solid rgba(255,255,255,0.15) !important;
         border-radius: 50px !important;
-        background: #fff !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+        background: #1E293B !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
         transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
     }
     .stChatInput > div:focus-within {
-        border-color: #FE320A !important;
-        box-shadow: 0 0 0 3px rgba(254,50,10,0.12) !important;
+        border-color: #FF8A00 !important;
+        box-shadow: 0 0 0 3px rgba(255,138,0,0.15) !important;
     }
     .stChatInput textarea {
-        font-family: 'DM Sans', sans-serif !important;
+        font-family: 'neu', sans-serif !important;
         font-size: 0.95rem !important;
-        color: #1a1a1a !important;
+        color: #F8FAFC !important;
     }
 
     /* ── Chat messages ── */
@@ -163,8 +163,8 @@ st.markdown(
     }
     /* User bubble */
     [data-testid="stChatMessage"][data-role="user"] .stMarkdown {
-        background: #1a1a1a;
-        color: #fff;
+        background: #334155;
+        color: #F8FAFC;
         border-radius: 18px 18px 4px 18px;
         padding: 0.75rem 1rem;
         display: inline-block;
@@ -175,91 +175,94 @@ st.markdown(
     }
     /* Assistant bubble */
     [data-testid="stChatMessage"][data-role="assistant"] .stMarkdown {
-        background: #fff;
-        color: #1a1a1a;
+        background: #1E293B;
+        color: #F8FAFC;
         border-radius: 4px 18px 18px 18px;
         padding: 1rem 1.1rem;
-        border: 1px solid rgba(0,0,0,0.07);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         font-size: 0.95rem;
         line-height: 1.65;
     }
 
     /* ── Avatar icons ── */
     [data-testid="stChatMessageAvatarUser"] {
-        background: #1a1a1a !important;
-        color: #fff !important;
+        background: #334155 !important;
+        color: #F8FAFC !important;
         border-radius: 50% !important;
     }
     [data-testid="stChatMessageAvatarAssistant"] {
-        background: linear-gradient(135deg, #FE320A, #FF6B35) !important;
+        background: linear-gradient(135deg, #FF8A00, #FFA500) !important;
         border-radius: 50% !important;
     }
 
     /* ── Buttons ── */
     .stButton > button {
-        font-family: 'DM Sans', sans-serif !important;
+        font-family: 'neu', sans-serif !important;
         font-weight: 500 !important;
         border-radius: 50px !important;
-        border: 1px solid rgba(0,0,0,0.12) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
         background: transparent !important;
-        color: #1a1a1a !important;
+        color: #F8FAFC !important;
         transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
                     box-shadow 0.25s ease !important;
         padding: 0.35rem 1.1rem !important;
     }
     .stButton > button:hover {
-        background: #1a1a1a !important;
-        color: #fff !important;
-        border-color: #1a1a1a !important;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.15) !important;
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+        border-color: #F8FAFC !important;
+        box-shadow: 0 4px 14px rgba(255,255,255,0.15) !important;
     }
 
     /* ── Spinner ── */
-    .stSpinner > div { border-top-color: #FE320A !important; }
+    .stSpinner > div { border-top-color: #FF8A00 !important; }
 
     /* ── Expanders (Sources) ── */
     .stExpander {
-        border: 1px solid rgba(0,0,0,0.08) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
         border-radius: 12px !important;
-        background: #fff !important;
+        background: #1E293B !important;
     }
     .stExpander summary {
         font-size: 0.85rem !important;
         font-weight: 500 !important;
-        color: rgba(26,26,26,0.6) !important;
+        color: #94A3B8 !important;
     }
-    .stExpander summary:hover { color: #FE320A !important; }
+    .stExpander summary:hover { color: #FF8A00 !important; }
 
     /* ── Config warning block ── */
     .stAlert {
         border-radius: 12px !important;
-        border-left-color: #FE320A !important;
+        border-left-color: #FF8A00 !important;
         font-size: 0.9rem !important;
+        background: rgba(255,138,0,0.1) !important;
+        color: #F8FAFC !important;
     }
 
     /* ── Code block ── */
     .stCodeBlock { border-radius: 10px !important; }
 
     /* ── Divider ── */
-    hr { border-color: rgba(0,0,0,0.07) !important; }
+    hr { border-color: rgba(255,255,255,0.1) !important; }
 
     /* ── Toast ── */
     [data-testid="stToast"] {
-        background: #1a1a1a !important;
-        color: #fff !important;
+        background: #1E293B !important;
+        color: #F8FAFC !important;
         border-radius: 12px !important;
-        font-family: 'DM Sans', sans-serif !important;
+        font-family: 'neu', sans-serif !important;
     }
 
     /* ── Focus ring ── */
-    :focus-visible { outline: 2px solid #FE320A !important; outline-offset: 2px; }
+    :focus-visible { outline: 2px solid #FF8A00 !important; outline-offset: 2px; }
 
     /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(254,50,10,0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,138,0,0.5); }
+
     /* ── Sidebar Profile ── */
     .sidebar-profile {
         text-align: center;
@@ -268,13 +271,17 @@ st.markdown(
     .profile-name {
         font-weight: 600;
         font-size: 1.25rem;
-        color: #1a1a1a;
+        color: #FF8A00;
         margin-bottom: 0.2rem;
     }
     .profile-handle {
         font-size: 0.85rem;
-        color: rgba(26,26,26,0.6);
+        color: #000000;
         margin-bottom: 1.5rem;
+    }
+    .profile-handle a {
+        color: #000000;
+        text-decoration: none;
     }
     .social-links {
         display: flex;
@@ -289,14 +296,14 @@ st.markdown(
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: rgba(26,26,26,0.05);
-        color: #FE320A !important;
+        background: rgba(255,255,255,0.05);
+        color: #FF8A00 !important;
         text-decoration: none !important;
         transition: all 0.3s ease;
     }
     .social-link:hover {
-        background: #FE320A;
-        color: #fff !important;
+        background: #FF8A00;
+        color: #0F172A !important;
         transform: translateY(-2px);
     }
     .social-link svg {
@@ -318,7 +325,7 @@ with st.sidebar:
         """
 <div class="sidebar-profile">
 <div class="profile-name">Anuj Chaudhary</div>
-<div class="profile-handle">@beinganujchaudhary</div>
+<div class="profile-handle"><a href="https://beinganujchaudhary.web.app/" target="_blank">@beinganujchaudhary</a></div>
 
 <div class="social-links">
 <a href="https://www.linkedin.com/in/beinganujchaudhary/" target="_blank" class="social-link" title="LinkedIn">
@@ -338,11 +345,11 @@ with st.sidebar:
 </a>
 </div>
 
-<div style="margin-top: 2.5rem; font-size: 0.82rem; color: rgba(26,26,26,0.55); line-height: 1.5;">
+<div style="margin-top: 2.5rem; font-size: 0.82rem; color: #000000; line-height: 1.5;">
 <p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered educational bot is designed to demystify Machine Learning, Artificial Intelligence, and Data Science.</p>
 <p style="margin-top: 0.75rem;">By leveraging a comprehensive, vector-indexed knowledge base built from over 500 detailed Wikipedia articles, the bot provides highly accurate, context-grounded answers. It retrieves factual information directly from Wikipedia's rich repository and includes sources along with intuitive visual concept maps to help you grasp complex relationships.</p>
 <p style="margin-top: 1rem;">&copy; 2026 Anuj Chaudhary</p>
-<p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FE320A; text-decoration: none;">beinganujchaudhary.web.app</a></p>
+<p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FF8A00; text-decoration: none;">beinganujchaudhary.web.app</a></p>
 </div>
 </div>
         """,
