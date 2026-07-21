@@ -11,22 +11,35 @@ load_dotenv()
 
 wikipedia.set_user_agent("MLConceptsRAG/1.0 (beinganujchaudhary@gmail.com)")
 
-# Topics to fetch from Wikipedia
-WIKI_TOPICS = [
-    "Machine learning",
-    "Deep learning",
-    "Neural network",
-    "Support vector machine",
-    "Random forest",
-    "Natural language processing",
-    "Computer vision",
-    "Reinforcement learning",
-    "Supervised learning",
-    "Unsupervised learning",
-    "Generative artificial intelligence",
-    "Large language model",
-    "Transformer (machine learning model)"
-]
+# Fetch up to 500 topics from Wikipedia using base queries
+def get_extended_wiki_topics(target_count=500):
+    base_queries = [
+        "Machine learning", "Artificial intelligence", "Deep learning",
+        "Data science", "Neural networks", "Natural language processing",
+        "Computer vision", "Reinforcement learning", "Statistics",
+        "Data mining", "Big data", "Cloud computing", "Algorithm",
+        "Generative AI", "Large language model", "Data visualization",
+        "Predictive modeling", "Supervised learning", "Unsupervised learning",
+        "Regression analysis", "Decision tree", "Random forest", "Support vector machine",
+        "Clustering", "Dimensionality reduction", "Feature engineering"
+    ]
+    
+    topics = set()
+    for query in base_queries:
+        if len(topics) >= target_count:
+            break
+        try:
+            results = wikipedia.search(query, results=30)
+            for res in results:
+                topics.add(res)
+                if len(topics) >= target_count:
+                    break
+        except Exception:
+            pass
+            
+    return list(topics)[:target_count]
+
+WIKI_TOPICS = get_extended_wiki_topics(500)
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
 INDEX_NAME = "ml-concepts"  # Pinecone index names must be lowercase hyphens

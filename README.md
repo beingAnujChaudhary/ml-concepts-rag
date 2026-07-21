@@ -4,7 +4,7 @@ An end-to-end retrieval-augmented generation application that answers machine-le
 
 ## Architecture
 
-The automated ingestion script fetches 13 machine-learning articles through the Wikipedia API, cleans and chunks the text, embeds chunks with `all-MiniLM-L6-v2`, and pushes them to a Pinecone Serverless vector index. At query time, the LLM rewrites the question, Pinecone performs dense vector retrieval, results are re-ranked by a cross-encoder, and the LLM generates a context-only answer plus a Mermaid diagram. Streamlit provides the interface. Supabase (Cloud PostgreSQL) stores interactions, latency, and feedback; Grafana visualizes this monitoring data locally.
+The automated ingestion script fetches over 500 machine learning, AI, and data science articles through the Wikipedia API, cleans and chunks the text, embeds chunks with `all-MiniLM-L6-v2`, and pushes them to a Pinecone Serverless vector index. At query time, the LLM rewrites the question, Pinecone performs dense vector retrieval, results are re-ranked by a cross-encoder, and the LLM generates a context-only answer plus a Mermaid diagram. Streamlit provides the interface with a custom typography and color theme. Supabase (Cloud PostgreSQL) stores interactions, latency, and feedback; Grafana visualizes this monitoring data locally.
 
 | Capability | Technology |
 |---|---|
@@ -12,7 +12,7 @@ The automated ingestion script fetches 13 machine-learning articles through the 
 | LLM | Groq (Llama-3.1-8b) & OpenAI (GPT-4o-mini fallback) |
 | Embeddings | Sentence Transformers `all-MiniLM-L6-v2` |
 | Knowledge base | Pinecone Serverless Vector DB |
-| Interface | Streamlit with Mermaid diagrams |
+| Interface | Streamlit with custom brand theme and Mermaid diagrams |
 | Monitoring | Supabase (PostgreSQL) and Grafana 11 |
 | Runtime | Streamlit Community Cloud (App) + Docker Compose (Grafana) |
 
@@ -76,7 +76,7 @@ To stop the project, use `docker compose down`. Add `-v` only when you intention
 
 **Interface (2):** Streamlit offers chat, expandable citations, feedback controls, and generated Mermaid concept diagrams.
 
-**Ingestion pipeline (2):** `data_ingestion/ingest.py` automates fetching, cleaning, chunking, embedding, index creation, and indexing.
+**Ingestion pipeline (2):** `data_ingestion/ingest.py` automates fetching 500+ Wikipedia articles, cleaning, chunking, embedding, index creation, and indexing.
 
 **Monitoring (2):** Feedback and latency are stored in Supabase PostgreSQL. The provisioned Grafana dashboard contains five panels: total queries, average response time, feedback distribution, queries over time, and recent queries.
 
