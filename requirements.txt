@@ -1,10 +1,9 @@
-streamlit==1.36.0
-pandas==2.2.2
-pinecone-client==5.0.0
-openai==1.35.13
-sentence-transformers==3.0.1
-psycopg
+streamlit>=1.36.0
+pinecone>=5.0.0
+openai>=1.35.13
+sentence-transformers>=3.0.1
+psycopg[binary]>=3.1.0
 wikipedia==1.4.0
 python-dotenv==1.0.1
-httpx==0.27.2
-tqdm==4.66.4
+httpx>=0.27.2
+tqdm>=4.66.4
