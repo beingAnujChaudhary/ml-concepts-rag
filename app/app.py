@@ -63,7 +63,6 @@ st.markdown(
         font-size: 0.72rem;
         font-weight: 500;
         letter-spacing: 0.12em;
-        text-transform: uppercase;
         color: rgba(26,26,26,0.5);
     }
     .brand-title {
@@ -301,37 +300,37 @@ db.init_db()
 with st.sidebar:
     st.markdown(
         """
-        <div class="sidebar-profile">
-            <div class="profile-name">Anuj Chaudhary</div>
-            <div class="profile-handle">@beinganujchaudhary</div>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/beinganujchaudhary/" target="_blank" class="social-link" title="LinkedIn">
-                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-                <a href="https://github.com/beinganujchaudhary" target="_blank" class="social-link" title="GitHub">
-                    <svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.795 24 17.3 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"/></svg>
-                </a>
-                <a href="https://twitter.com/anujisonholiday" target="_blank" class="social-link" title="X (Twitter)">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/beinganujchaudhary" target="_blank" class="social-link" title="Instagram">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74.001 8.344.001 7.053.058c-3.75.17-6.175 1.649-6.98 6.98-.056 1.291-.058 1.687-.058 4.914s.002 3.623.058 4.914c.805 5.332 3.23 6.811 6.98 6.98 1.291.056 1.687.058 4.914.058s3.623-.002 4.914-.058c5.332-.805 6.811-3.23 6.98-6.98.056-1.291.058-1.687.058-4.914s-.002-3.623-.058-4.914c-.805-5.332-3.23-6.811-6.98-6.98C15.656.001 15.26.001 12 .001z"></path></svg>
-                </a>
-                <a href="mailto:beinganujchaudhary@gmail.com" class="social-link" title="Email">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </a>
-                <a href="https://wa.me/message/QT5MJZ25KRYDA1" target="_blank" class="social-link" title="WhatsApp">
-                    <svg viewBox="0 0 32 32"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.88 1.9 7.02L2 30l7.18-1.88A13.94 13.94 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.32-.58-6.2-1.68l-.44-.26-4.26 1.12 1.14-4.14-.28-.46A11.44 11.44 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.28-8.56c-.34-.17-2.02-1-2.34-1.11-.32-.11-.55-.17-.78.17-.23.34-.9 1.11-1.1 1.34-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69-1.01-.9-1.7-2.01-1.9-2.35-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.78-1.88-1.07-2.57-.28-.68-.57-.59-.78-.6h-.66c-.23 0-.6.09-.91.43-.31.34-1.19 1.16-1.19 2.83s1.22 3.28 1.39 3.51c.17.23 2.4 3.66 5.82 5.13.81.35 1.45.56 1.94.72.82.26 1.56.22 2.15.13.66-.1 2.02-.82 2.31-1.62.29-.8.29-1.48.2-1.62-.09-.14-.32-.23-.66-.4z"/></svg>
-                </a>
-            </div>
-            
-            <div style="margin-top: 2.5rem; font-size: 0.82rem; color: rgba(26,26,26,0.55); line-height: 1.5;">
-                <p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered bot uses a curated knowledge base to teach Machine Learning with context and visual concept maps.</p>
-                <p style="margin-top: 1rem;">&copy; 2024 Anuj Chaudhary</p>
-                <p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FE320A; text-decoration: none;">beinganujchaudhary.web.app</a></p>
-            </div>
-        </div>
+<div class="sidebar-profile">
+    <div class="profile-name">Anuj Chaudhary</div>
+    <div class="profile-handle">@beinganujchaudhary</div>
+    
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/beinganujchaudhary/" target="_blank" class="social-link" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/beinganujchaudhary" target="_blank" class="social-link" title="GitHub">
+            <svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.565 21.795 24 17.3 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="https://twitter.com/anujisonholiday" target="_blank" class="social-link" title="X (Twitter)">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/beinganujchaudhary" target="_blank" class="social-link" title="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74.001 8.344.001 7.053.058c-3.75.17-6.175 1.649-6.98 6.98-.056 1.291-.058 1.687-.058 4.914s.002 3.623.058 4.914c.805 5.332 3.23 6.811 6.98 6.98 1.291.056 1.687.058 4.914.058s3.623-.002 4.914-.058c5.332-.805 6.811-3.23 6.98-6.98.056-1.291.058-1.687.058-4.914s-.002-3.623-.058-4.914c-.805-5.332-3.23-6.811-6.98-6.98C15.656.001 15.26.001 12 .001z"></path></svg>
+        </a>
+        <a href="mailto:beinganujchaudhary@gmail.com" class="social-link" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a href="https://wa.me/message/QT5MJZ25KRYDA1" target="_blank" class="social-link" title="WhatsApp">
+            <svg viewBox="0 0 32 32"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.88 1.9 7.02L2 30l7.18-1.88A13.94 13.94 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.32-.58-6.2-1.68l-.44-.26-4.26 1.12 1.14-4.14-.28-.46A11.44 11.44 0 014.5 16C4.5 9.6 9.6 4.5 16 4.5S27.5 9.6 27.5 16 22.4 27.5 16 27.5zm6.28-8.56c-.34-.17-2.02-1-2.34-1.11-.32-.11-.55-.17-.78.17-.23.34-.9 1.11-1.1 1.34-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69-1.01-.9-1.7-2.01-1.9-2.35-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.78-1.88-1.07-2.57-.28-.68-.57-.59-.78-.6h-.66c-.23 0-.6.09-.91.43-.31.34-1.19 1.16-1.19 2.83s1.22 3.28 1.39 3.51c.17.23 2.4 3.66 5.82 5.13.81.35 1.45.56 1.94.72.82.26 1.56.22 2.15.13.66-.1 2.02-.82 2.31-1.62.29-.8.29-1.48.2-1.62-.09-.14-.32-.23-.66-.4z"/></svg>
+        </a>
+    </div>
+    
+    <div style="margin-top: 2.5rem; font-size: 0.82rem; color: rgba(26,26,26,0.55); line-height: 1.5;">
+        <p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered bot uses a curated knowledge base to teach Machine Learning with context and visual concept maps.</p>
+        <p style="margin-top: 1rem;">&copy; 2024 Anuj Chaudhary</p>
+        <p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FE320A; text-decoration: none;">beinganujchaudhary.web.app</a></p>
+    </div>
+</div>
         """,
         unsafe_allow_html=True
     )
@@ -339,16 +338,16 @@ with st.sidebar:
 # ── Branded header ────────────────────────────────────────────────────────────
 st.markdown(
     """
-    <div class="brand-header">
-        <div class="brand-logo-area">
-            <div class="brand-dot">🤖</div>
-            <div>
-                <div class="brand-name">beingAnujChaudhary</div>
-                <div class="brand-title">ML Concepts Atlas</div>
-            </div>
+<div class="brand-header">
+    <div class="brand-logo-area">
+        <div class="brand-dot">🤖</div>
+        <div>
+            <div class="brand-name">beingAnujChaudhary</div>
+            <div class="brand-title">ML Concepts Atlas</div>
         </div>
-        <span class="brand-badge">RAG · Powered</span>
     </div>
+    <span class="brand-badge">RAG · Powered</span>
+</div>
     """,
     unsafe_allow_html=True,
 )
@@ -381,14 +380,14 @@ if missing:
 if "messages" not in st.session_state or not st.session_state.messages:
     st.markdown(
         """
-        <div class="hero-section">
-            <div class="hero-tag">Retrieval-Augmented Generation</div>
-            <h1 class="hero-heading">Ask about <span>Machine Learning</span></h1>
-            <p class="hero-sub">
-                Each grounded answer pulls from a curated knowledge base
-                and includes sources and a visual concept map.
-            </p>
-        </div>
+<div class="hero-section">
+    <div class="hero-tag">Retrieval-Augmented Generation</div>
+    <h1 class="hero-heading">Ask about <span>Machine Learning</span></h1>
+    <p class="hero-sub">
+        Each grounded answer pulls from a curated knowledge base
+        and includes sources and a visual concept map.
+    </p>
+</div>
         """,
         unsafe_allow_html=True,
     )
