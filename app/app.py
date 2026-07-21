@@ -1,4 +1,5 @@
 import html
+import os
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -6,7 +7,7 @@ import streamlit.components.v1 as components
 import db
 import rag
 
-# Initialize DB on startup
+# Initialize DB on startup (graceful if DB not configured)
 db.init_db()
 
 st.set_page_config(page_title="ML Concepts RAG", page_icon="🤖")
@@ -16,6 +17,31 @@ st.markdown(
     "Ask about a machine-learning concept. Each grounded answer includes sources "
     "and a visual concept map."
 )
+
+# ── Configuration warnings ────────────────────────────────────────────────────
+missing = []
+if not os.getenv("OPENAI_API_KEY") and not os.getenv("GROQ_API_KEY"):
+    missing.append("**LLM**: Set `OPENAI_API_KEY` or `GROQ_API_KEY` in Streamlit secrets.")
+if not os.getenv("PINECONE_API_KEY"):
+    missing.append("**Vector DB**: Set `PINECONE_API_KEY` in Streamlit secrets.")
+
+if missing:
+    with st.expander("⚠️ Configuration required — click to see details", expanded=True):
+        st.warning(
+            "The following secrets are not configured. "
+            "Go to **Streamlit Cloud → App settings → Secrets** and add them:\n\n"
+            + "\n".join(f"- {m}" for m in missing)
+        )
+        st.code(
+            "# Paste this into Streamlit Cloud Secrets (TOML format)\n"
+            'GROQ_API_KEY = "your_groq_key_here"\n'
+            'PINECONE_API_KEY = "your_pinecone_key_here"\n'
+            '# Optional:\n'
+            '# OPENAI_API_KEY = "sk-..."\n'
+            '# DATABASE_URL = "postgresql://..."\n',
+            language="toml",
+        )
+# ─────────────────────────────────────────────────────────────────────────────
 
 
 def render_mermaid(diagram):
@@ -102,8 +128,8 @@ if prompt := st.chat_input("Ask a question..."):
             if response_data["contexts"]:
                 with st.expander("Show Sources"):
                     for i, ctx in enumerate(response_data["contexts"]):
-                        st.markdown(f"**{i+1}. [{ctx['title']}]({ctx['url']})**")
-                        st.text(ctx['text'])
+                        st.markdown(f"**{i+1}. [{ctx.get('title', 'Source')}]({ctx.get('url', '#')})**")
+                        st.text(ctx.get("text", ""))
             
             if interaction_id:
                 col1, col2, _ = st.columns([1, 1, 8])

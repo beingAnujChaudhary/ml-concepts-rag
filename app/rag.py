@@ -3,14 +3,20 @@ import time
 
 from pinecone import Pinecone
 from openai import OpenAI
-from sentence_transformers import SentenceTransformer, CrossEncoder
+from sentence_transformers import SentenceTransformer
+
+# CrossEncoder moved in sentence-transformers v4+
+try:
+    from sentence_transformers.cross_encoder import CrossEncoder
+except ImportError:
+    from sentence_transformers import CrossEncoder
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
 INDEX_NAME = "ml-concepts"
 
 # Dual LLM provider: try OpenAI first, fall back to Groq
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
@@ -35,6 +41,9 @@ cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 def _llm_complete(messages, temperature=0.0):
     """Try each configured LLM provider in order; return the first successful response."""
+    if not _providers:
+        print("No LLM providers configured. Set OPENAI_API_KEY or GROQ_API_KEY.")
+        return None
     for provider in _providers:
         try:
             response = provider["client"].chat.completions.create(
@@ -79,9 +88,15 @@ def vector_search(query, top_k=5):
         )
         
         results = []
-        for match in response['matches']:
-            doc = match['metadata']
-            doc['id'] = match['id']
+        # Support both Pinecone SDK v3-v5 (dict) and v6+ (object attributes)
+        matches = response.matches if hasattr(response, "matches") else response.get("matches", [])
+        for match in matches:
+            if hasattr(match, "metadata"):
+                doc = dict(match.metadata) if match.metadata else {}
+                doc["id"] = match.id
+            else:
+                doc = match.get("metadata", {}).copy()
+                doc["id"] = match.get("id", "")
             results.append(doc)
             
         return results
@@ -94,18 +109,24 @@ def rerank_results(query, results):
     if not results:
         return results
 
-    pairs = [[query, doc['text']] for doc in results]
-    scores = cross_encoder.predict(pairs)
-    for i, score in enumerate(scores):
-        results[i]['rerank_score'] = float(score)
-    results = sorted(results, key=lambda x: x['rerank_score'], reverse=True)
+    pairs = [[query, doc.get("text", "")] for doc in results]
+    try:
+        scores = cross_encoder.predict(pairs)
+        for i, score in enumerate(scores):
+            results[i]["rerank_score"] = float(score)
+        results = sorted(results, key=lambda x: x.get("rerank_score", 0), reverse=True)
+    except Exception as e:
+        print(f"Re-ranking error: {e}")
     return results
 
 def generate_answer(query, contexts):
     """Generate a grounded explanation and a separate Mermaid concept diagram."""
+    if not contexts:
+        return "I don't have enough information to answer that based on my knowledge base."
+
     context_text = ""
     for doc in contexts:
-        context_text += f"Title: {doc['title']}\nText: {doc['text']}\n\n"
+        context_text += f"Title: {doc.get('title', 'Unknown')}\nText: {doc.get('text', '')}\n\n"
 
     prompt = f"""
     You are a Machine Learning educator. Answer the user's question using ONLY the provided context.
@@ -131,7 +152,7 @@ def generate_mermaid_diagram(query, answer, contexts):
         return ""
 
     context_text = "\n\n".join(
-        f"Title: {doc['title']}\nText: {doc['text']}" for doc in contexts
+        f"Title: {doc.get('title', '')}\nText: {doc.get('text', '')}" for doc in contexts
     )
     prompt = f"""
     Create a compact Mermaid flowchart that illustrates the ML concept in the answer.
