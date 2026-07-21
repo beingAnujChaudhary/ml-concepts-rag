@@ -76,7 +76,7 @@ To stop the project, use `docker compose down`. Add `-v` only when you intention
 
 **Interface (2):** Streamlit offers chat, expandable citations, feedback controls, and generated Mermaid concept diagrams.
 
-**Ingestion pipeline (2):** `data_ingestion/ingest.py` automates fetching 500+ Wikipedia articles, cleaning, chunking, embedding, index creation, and indexing.
+**Ingestion pipeline (2):** `data_ingestion/ingest.py` is fully automated as a **Prefect** workflow (`@flow` and `@task` decorators). It automates fetching 500+ Wikipedia articles, cleaning, chunking, embedding, index creation, and indexing, which guarantees reliable execution and retry logic.
 
 **Monitoring (2):** Feedback and latency are stored in Supabase PostgreSQL. The provisioned Grafana dashboard contains five panels: total queries, average response time, feedback distribution, queries over time, and recent queries.
 

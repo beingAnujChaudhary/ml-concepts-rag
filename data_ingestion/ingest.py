@@ -6,6 +6,7 @@ from pinecone import Pinecone, ServerlessSpec
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
 from dotenv import load_dotenv
+from prefect import flow, task
 
 load_dotenv()
 
@@ -44,6 +45,7 @@ WIKI_TOPICS = get_extended_wiki_topics(500)
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
 INDEX_NAME = "ml-concepts"  # Pinecone index names must be lowercase hyphens
 
+@task(name="Fetch Wikipedia Pages", retries=3, retry_delay_seconds=10)
 def fetch_wikipedia_pages(topics):
     print("Fetching Wikipedia pages...")
     pages_data = []
@@ -85,6 +87,7 @@ def chunk_text(text, chunk_size=500, overlap=50):
         
     return chunks
 
+@task(name="Chunk and Embed Data")
 def process_and_embed(pages_data):
     print("Chunking text and computing embeddings...")
     model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -118,6 +121,7 @@ def process_and_embed(pages_data):
             
     return documents
 
+@task(name="Upsert to Pinecone Vector DB")
 def index_to_pinecone(documents):
     if not PINECONE_API_KEY:
         print("Error: PINECONE_API_KEY not found. Please set it in .env")
@@ -158,8 +162,9 @@ def index_to_pinecone(documents):
         
     print("Indexing complete.")
 
-if __name__ == "__main__":
-    pages_data = fetch_wikipedia_pages(WIKI_TOPICS)
+@flow(name="Wikipedia Data Ingestion Pipeline", description="Fetches Wikipedia articles, embeds them, and uploads to Pinecone.")
+def run_ingestion_pipeline(topics):
+    pages_data = fetch_wikipedia_pages(topics)
     documents = process_and_embed(pages_data)
     
     # Save a sample to check structure
@@ -169,3 +174,6 @@ if __name__ == "__main__":
         json.dump(sample, f, indent=2)
         
     index_to_pinecone(documents)
+
+if __name__ == "__main__":
+    run_ingestion_pipeline(WIKI_TOPICS)
