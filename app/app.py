@@ -43,8 +43,8 @@ st.markdown(
     }
 
     /* ── Background ── */
-    .stApp { background-color: #0F172A; }
-    section[data-testid="stSidebar"] { background-color: #1E293B; }
+    .stApp { background-color: #EFEAE3; }
+    section[data-testid="stSidebar"] { background-color: #E4DDD5; }
 
     /* ── Hide default Streamlit chrome ── */
     #MainMenu, footer { visibility: hidden; }
@@ -57,7 +57,7 @@ st.markdown(
         align-items: center;
         justify-content: space-between;
         padding: 0.75rem 0 1.5rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.08);
         margin-bottom: 2rem;
     }
     .brand-logo-area {
@@ -67,23 +67,23 @@ st.markdown(
     }
     .brand-dot {
         width: 56px; height: 56px;
-        background: linear-gradient(135deg, #FF8A00, #FFA500);
+        background: linear-gradient(135deg, #FE320A, #FF6B35);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         font-size: 2rem;
-        box-shadow: 0 4px 14px rgba(255,138,0,0.3);
+        box-shadow: 0 4px 14px rgba(254,50,10,0.3);
         flex-shrink: 0;
     }
     .brand-name {
         font-size: 0.72rem;
         font-weight: 500;
         letter-spacing: 0.12em;
-        color: #FF8A00;
+        color: rgba(26,26,26,0.5);
     }
     .brand-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #F8FAFC;
+        color: #1a1a1a;
         line-height: 1.2;
     }
     .brand-badge {
@@ -91,10 +91,10 @@ st.markdown(
         font-weight: 500;
         letter-spacing: 0.06em;
         padding: 0.3rem 0.85rem;
-        border: 1px solid rgba(255,138,0,0.3);
+        border: 1px solid rgba(254,50,10,0.25);
         border-radius: 50px;
-        color: #FF8A00;
-        background: rgba(255,138,0,0.1);
+        color: #FE320A;
+        background: rgba(254,50,10,0.06);
     }
 
     /* ── Hero section ── */
@@ -108,8 +108,8 @@ st.markdown(
         font-weight: 500;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: #FF8A00;
-        border: 1px solid rgba(255,138,0,0.3);
+        color: #FE320A;
+        border: 1px solid rgba(254,50,10,0.3);
         border-radius: 50px;
         padding: 0.3rem 1rem;
         margin-bottom: 1rem;
@@ -117,13 +117,13 @@ st.markdown(
     .hero-heading {
         font-size: clamp(1.9rem, 4vw, 2.6rem);
         font-weight: 600;
-        color: #F8FAFC;
+        color: #1a1a1a;
         line-height: 1.2;
         letter-spacing: -0.02em;
         margin: 0.5rem 0;
     }
     .hero-heading span {
-        background: linear-gradient(to right, #FF8A00, #FFC107);
+        background: linear-gradient(to right, #FE320A, #ff6b35);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -140,20 +140,20 @@ st.markdown(
 
     /* ── Chat input ── */
     .stChatInput > div {
-        border: 1px solid rgba(255,255,255,0.15) !important;
+        border: 1px solid rgba(0,0,0,0.12) !important;
         border-radius: 50px !important;
-        background: #1E293B !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
+        background: #fff !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
         transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
     }
     .stChatInput > div:focus-within {
-        border-color: #FF8A00 !important;
-        box-shadow: 0 0 0 3px rgba(255,138,0,0.15) !important;
+        border-color: #FE320A !important;
+        box-shadow: 0 0 0 3px rgba(254,50,10,0.12) !important;
     }
     .stChatInput textarea {
         font-family: 'neu', sans-serif !important;
         font-size: 0.95rem !important;
-        color: #F8FAFC !important;
+        color: #1a1a1a !important;
     }
 
     /* ── Chat messages ── */
@@ -163,8 +163,8 @@ st.markdown(
     }
     /* User bubble */
     [data-testid="stChatMessage"][data-role="user"] .stMarkdown {
-        background: #334155;
-        color: #F8FAFC;
+        background: #1a1a1a;
+        color: #fff;
         border-radius: 18px 18px 4px 18px;
         padding: 0.75rem 1rem;
         display: inline-block;
@@ -175,24 +175,24 @@ st.markdown(
     }
     /* Assistant bubble */
     [data-testid="stChatMessage"][data-role="assistant"] .stMarkdown {
-        background: #1E293B;
-        color: #F8FAFC;
+        background: #fff;
+        color: #1a1a1a;
         border-radius: 4px 18px 18px 18px;
         padding: 1rem 1.1rem;
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        border: 1px solid rgba(0,0,0,0.07);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         font-size: 0.95rem;
         line-height: 1.65;
     }
 
     /* ── Avatar icons ── */
     [data-testid="stChatMessageAvatarUser"] {
-        background: #334155 !important;
-        color: #F8FAFC !important;
+        background: #1a1a1a !important;
+        color: #fff !important;
         border-radius: 50% !important;
     }
     [data-testid="stChatMessageAvatarAssistant"] {
-        background: linear-gradient(135deg, #FF8A00, #FFA500) !important;
+        background: linear-gradient(135deg, #FE320A, #FF6B35) !important;
         border-radius: 50% !important;
     }
 
@@ -201,67 +201,65 @@ st.markdown(
         font-family: 'neu', sans-serif !important;
         font-weight: 500 !important;
         border-radius: 50px !important;
-        border: 1px solid rgba(255,255,255,0.2) !important;
+        border: 1px solid rgba(0,0,0,0.12) !important;
         background: transparent !important;
-        color: #F8FAFC !important;
+        color: #1a1a1a !important;
         transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
                     box-shadow 0.25s ease !important;
         padding: 0.35rem 1.1rem !important;
     }
     .stButton > button:hover {
-        background: #F8FAFC !important;
-        color: #0F172A !important;
-        border-color: #F8FAFC !important;
-        box-shadow: 0 4px 14px rgba(255,255,255,0.15) !important;
+        background: #1a1a1a !important;
+        color: #fff !important;
+        border-color: #1a1a1a !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.15) !important;
     }
 
     /* ── Spinner ── */
-    .stSpinner > div { border-top-color: #FF8A00 !important; }
+    .stSpinner > div { border-top-color: #FE320A !important; }
 
     /* ── Expanders (Sources) ── */
     .stExpander {
-        border: 1px solid rgba(255,255,255,0.1) !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
         border-radius: 12px !important;
-        background: #1E293B !important;
+        background: #fff !important;
     }
     .stExpander summary {
         font-size: 0.85rem !important;
         font-weight: 500 !important;
-        color: #94A3B8 !important;
+        color: rgba(26,26,26,0.6) !important;
     }
-    .stExpander summary:hover { color: #FF8A00 !important; }
+    .stExpander summary:hover { color: #FE320A !important; }
 
     /* ── Config warning block ── */
     .stAlert {
         border-radius: 12px !important;
-        border-left-color: #FF8A00 !important;
+        border-left-color: #FE320A !important;
         font-size: 0.9rem !important;
-        background: rgba(255,138,0,0.1) !important;
-        color: #F8FAFC !important;
     }
 
     /* ── Code block ── */
     .stCodeBlock { border-radius: 10px !important; }
 
     /* ── Divider ── */
-    hr { border-color: rgba(255,255,255,0.1) !important; }
+    hr { border-color: rgba(0,0,0,0.07) !important; }
 
     /* ── Toast ── */
     [data-testid="stToast"] {
-        background: #1E293B !important;
-        color: #F8FAFC !important;
+        background: #1a1a1a !important;
+        color: #fff !important;
         border-radius: 12px !important;
         font-family: 'neu', sans-serif !important;
     }
 
     /* ── Focus ring ── */
-    :focus-visible { outline: 2px solid #FF8A00 !important; outline-offset: 2px; }
+    :focus-visible { outline: 2px solid #FE320A !important; outline-offset: 2px; }
 
     /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255,138,0,0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(254,50,10,0.5); }
 
     /* ── Sidebar Profile ── */
     .sidebar-profile {
@@ -271,7 +269,7 @@ st.markdown(
     .profile-name {
         font-weight: 600;
         font-size: 1.25rem;
-        color: #FF8A00;
+        color: #1a1a1a;
         margin-bottom: 0.2rem;
     }
     .profile-handle {
@@ -296,14 +294,14 @@ st.markdown(
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.05);
-        color: #FF8A00 !important;
+        background: rgba(26,26,26,0.05);
+        color: #FE320A !important;
         text-decoration: none !important;
         transition: all 0.3s ease;
     }
     .social-link:hover {
-        background: #FF8A00;
-        color: #0F172A !important;
+        background: #FE320A;
+        color: #fff !important;
         transform: translateY(-2px);
     }
     .social-link svg {
