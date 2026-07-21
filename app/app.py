@@ -17,14 +17,29 @@ st.set_page_config(
 # ── Brand CSS (portfolio-matched) ─────────────────────────────────────────────
 st.markdown(
     """
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-
     <style>
-    /* ── Typography ── */
+    /* ── Typography (portfolio-matched) ── */
+    @font-face {
+        font-family: 'neu';
+        src: url('https://beinganujchaudhary.web.app/assets/fonts/NeueHaasDisplayMediu.ttf') format('truetype');
+        font-weight: 500;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'neu';
+        src: url('https://beinganujchaudhary.web.app/assets/fonts/NeueHaasDisplayLight.ttf') format('truetype');
+        font-weight: 300;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'neu';
+        src: url('https://beinganujchaudhary.web.app/assets/fonts/NeueHaasDisplayRoman.ttf') format('truetype');
+        font-weight: 400;
+        font-display: swap;
+    }
+
     html, body, [class*="css"], .stMarkdown, .stTextInput, button {
-        font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+        font-family: 'neu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !important;
     }
 
     /* ── Background ── */
@@ -324,7 +339,8 @@ with st.sidebar:
 </div>
 
 <div style="margin-top: 2.5rem; font-size: 0.82rem; color: rgba(26,26,26,0.55); line-height: 1.5;">
-<p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered bot uses a curated knowledge base to teach Machine Learning with context and visual concept maps.</p>
+<p>Welcome to the <strong>ML Concepts Atlas</strong>. This RAG-powered educational bot is designed to demystify Machine Learning, Artificial Intelligence, and Data Science.</p>
+<p style="margin-top: 0.75rem;">By leveraging a comprehensive, vector-indexed knowledge base built from over 500 detailed Wikipedia articles, the bot provides highly accurate, context-grounded answers. It retrieves factual information directly from Wikipedia's rich repository and includes sources along with intuitive visual concept maps to help you grasp complex relationships.</p>
 <p style="margin-top: 1rem;">&copy; 2026 Anuj Chaudhary</p>
 <p style="margin-top: 0.2rem;"><a href="https://beinganujchaudhary.web.app/" target="_blank" style="color: #FE320A; text-decoration: none;">beinganujchaudhary.web.app</a></p>
 </div>
