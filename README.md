@@ -1,4 +1,4 @@
-# ML Concepts Atlas
+# [ML Concepts Atlas](https://beinganujchaudhary-ml-rag-concepts.streamlit.app/)
 
 An end-to-end retrieval-augmented generation application that answers machine-learning questions from a curated Wikipedia knowledge base. It is designed for learners who want concise, source-backed explanations instead of searching through long articles. Every grounded answer also includes a Mermaid concept map to illustrate the relationships or process being explained.
 
